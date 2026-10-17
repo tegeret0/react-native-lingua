@@ -1,0 +1,58 @@
+﻿import type { SupportedLanguage } from "../types/learning";
+
+export const languages: SupportedLanguage[] = [
+  {
+    id: "spanish",
+    code: "es",
+    name: "Spanish",
+    nativeName: "Español",
+    flag: "🇪🇸",
+    learnerCount: "28.4M",
+    instructionLanguage: "English",
+  },
+  {
+    id: "french",
+    code: "fr",
+    name: "French",
+    nativeName: "Français",
+    flag: "🇫🇷",
+    learnerCount: "19.4M",
+    instructionLanguage: "English",
+  },
+  {
+    id: "japanese",
+    code: "ja",
+    name: "Japanese",
+    nativeName: "日本語",
+    flag: "🇯🇵",
+    learnerCount: "12.7M",
+    instructionLanguage: "English",
+  },
+  {
+    id: "korean",
+    code: "ko",
+    name: "Korean",
+    nativeName: "한국어",
+    flag: "🇰🇷",
+    learnerCount: "9.3M",
+    instructionLanguage: "English",
+  },
+  {
+    id: "german",
+    code: "de",
+    name: "German",
+    nativeName: "Deutsch",
+    flag: "🇩🇪",
+    learnerCount: "8.1M",
+    instructionLanguage: "English",
+  },
+  {
+    id: "chinese",
+    code: "zh",
+    name: "Chinese",
+    nativeName: "中文",
+    flag: "🇨🇳",
+    learnerCount: "7.4M",
+    instructionLanguage: "English",
+  },
+];
