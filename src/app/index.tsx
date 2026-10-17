@@ -1,6 +1,7 @@
 import { useAuth } from "@clerk/expo";
 import { useState } from "react";
 import { Pressable, Text, View } from "react-native";
+import { Link } from "expo-router";
 
 export default function Index() {
   const { signOut } = useAuth();
@@ -28,6 +29,17 @@ export default function Index() {
           {errorMessage}
         </Text>
       ) : null}
+
+      <Link href="/language-selection" asChild>
+        <Pressable
+          className="mt-8 rounded-2xl border border-brand-purple px-8 py-4"
+          accessibilityRole="button"
+        >
+          <Text className="font-poppins-semibold text-[17px] text-brand-purple">
+            Choose a language
+          </Text>
+        </Pressable>
+      </Link>
 
       <Pressable
         onPress={() => void handleSignOut()}
