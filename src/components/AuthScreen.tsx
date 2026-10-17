@@ -1,13 +1,13 @@
 import { useSignIn, useSignUp } from "@clerk/expo";
 import { useSSO } from "@clerk/expo/experimental";
 import { useEffect, useRef, useState } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
 import {
   Image,
   KeyboardAvoidingView,
   Modal,
   Platform,
   Pressable,
-  SafeAreaView,
   ScrollView,
   Text,
   TextInput,
@@ -248,7 +248,7 @@ export default function AuthScreen({ mode }: AuthScreenProps) {
   }, [signIn, signUp, verificationAccepted, verificationFlow, verificationVisible]);
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFFFF" }}>
       <ScrollView
         className="flex-1"
         contentContainerClassName="grow px-7 pb-7"

@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useFonts } from "expo-font";
 import { Redirect, Stack, useSegments } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
+import { useLanguageStore } from "../store/language-store";
 
 void SplashScreen.preventAutoHideAsync();
 
@@ -33,6 +34,8 @@ function AppRoutes({ fontsLoaded }: { fontsLoaded: boolean }) {
   const { isLoaded, isSignedIn } = useAuth();
   const segments = useSegments();
   const currentRoute = segments[0];
+  const selectedLanguageId = useLanguageStore((state) => state.selectedLanguageId);
+  const hasHydrated = useLanguageStore((state) => state.hasHydrated);
   const isPublicRoute =
     currentRoute === "onboarding" ||
     currentRoute === "sign-in" ||
@@ -44,7 +47,7 @@ function AppRoutes({ fontsLoaded }: { fontsLoaded: boolean }) {
     }
   }, [fontsLoaded, isLoaded]);
 
-  if (!fontsLoaded || !isLoaded) {
+  if (!fontsLoaded || !isLoaded || !hasHydrated) {
     return null;
   }
 
@@ -53,8 +56,20 @@ function AppRoutes({ fontsLoaded }: { fontsLoaded: boolean }) {
   }
 
   if (isSignedIn && isPublicRoute) {
-    return <Redirect href="/" />;
+    return <Redirect href={selectedLanguageId ? "/" : "/language-selection"} />;
   }
 
-  return <Stack />;
+  if (isSignedIn && !selectedLanguageId && currentRoute !== "language-selection") {
+    return <Redirect href="/language-selection" />;
+  }
+
+  return (
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="(tabs)" />
+      <Stack.Screen name="language-selection" />
+      <Stack.Screen name="onboarding" />
+      <Stack.Screen name="sign-in" />
+      <Stack.Screen name="sign-up" />
+    </Stack>
+  );
 }

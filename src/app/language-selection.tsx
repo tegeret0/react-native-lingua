@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
 import {
   Image,
   Pressable,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -13,11 +13,16 @@ import { useRouter } from "expo-router";
 
 import { images } from "../../constants/images";
 import { languages } from "../../data/languages";
+import { useLanguageStore } from "../store/language-store";
 
 export default function LanguageSelectionScreen() {
   const router = useRouter();
   const [query, setQuery] = useState("");
-  const [selectedLanguageId, setSelectedLanguageId] = useState("spanish");
+  const selectedLanguageId = useLanguageStore((state) => state.selectedLanguageId);
+  const setSelectedLanguage = useLanguageStore((state) => state.setSelectedLanguage);
+  const [pendingLanguageId, setPendingLanguageId] = useState(
+    selectedLanguageId ?? "spanish",
+  );
   const filteredLanguages = useMemo(() => {
     const normalizedQuery = query.trim().toLocaleLowerCase();
 
@@ -28,7 +33,7 @@ export default function LanguageSelectionScreen() {
     );
   }, [query]);
   const selectedLanguage = languages.find(
-    (language) => language.id === selectedLanguageId,
+    (language) => language.id === pendingLanguageId,
   );
 
   return (
@@ -71,14 +76,14 @@ export default function LanguageSelectionScreen() {
 
         <View className="mt-3 gap-1.5">
           {filteredLanguages.map((language) => {
-            const isSelected = language.id === selectedLanguageId;
+            const isSelected = language.id === pendingLanguageId;
 
             return (
               <Pressable
                 key={language.id}
                 accessibilityRole="radio"
                 accessibilityState={{ checked: isSelected }}
-                onPress={() => setSelectedLanguageId(language.id)}
+                onPress={() => setPendingLanguageId(language.id)}
                 className={`h-[82px] flex-row items-center rounded-card border px-4 ${
                   isSelected
                     ? "border-2 border-brand-purple bg-[#F9F7FF]"
@@ -115,7 +120,10 @@ export default function LanguageSelectionScreen() {
 
         <Pressable
           accessibilityRole="button"
-          onPress={() => router.replace("/")}
+          onPress={() => {
+            setSelectedLanguage(pendingLanguageId);
+            router.replace("/");
+          }}
           className="mt-4 h-[56px] items-center justify-center rounded-control bg-brand-purple"
         >
           <Text className="font-poppins-semibold text-[17px] text-white">
