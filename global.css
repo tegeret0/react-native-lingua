@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .lingua-screen {
+    @apply flex-1 bg-background px-6;
+  }
+
+  .lingua-card {
+    @apply rounded-card border border-border bg-white p-4;
+  }
+
+  .lingua-heading--h1 {
+    @apply text-h1 font-poppins-bold text-text-primary;
+  }
+
+  .lingua-heading--h2 {
+    @apply text-h2 font-poppins-semibold text-text-primary;
+  }
+
+  .lingua-heading--h3 {
+    @apply text-h3 font-poppins-semibold text-text-primary;
+  }
+
+  .lingua-heading--h4 {
+    @apply text-h4 font-poppins-medium text-text-primary;
+  }
+
+  .lingua-body--large {
+    @apply text-body-large font-poppins text-text-primary;
+  }
+
+  .lingua-body--medium {
+    @apply text-body-medium font-poppins text-text-primary;
+  }
+
+  .lingua-body--small {
+    @apply text-body-small font-poppins text-text-primary;
+  }
+
+  .lingua-caption {
+    @apply text-caption font-poppins text-text-secondary;
+  }
+}
